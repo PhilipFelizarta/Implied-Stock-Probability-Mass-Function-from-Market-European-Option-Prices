@@ -27,20 +27,43 @@ I chose to weigh the square difference between points by the inverse of the abso
 ## Optimization Problem
 <img src="https://latex.codecogs.com/png.image?\dpi{110}&space;\bg_white&space;\min_{z}&space;L_{call}(z)&space;&plus;&space;L_{put}(z)&space;&plus;&space;\gamma&space;\sum_{i}^{N-1}\frac{(z_i&space;-&space;z_{i&plus;1})^2}{|x_i&space;-&space;x_{i&plus;1}|}" title="\bg_white \min_{z} L_{call}(z) + L_{put}(z) + \gamma \sum_{i}^{N-1}\frac{(z_i - z_{i+1})^2}{|x_i - x_{i+1}|}" />
 
-gamma is set to 1e-4 for SPX European Options. I use tensorflow_probability to optimize this equation with L-BFGS.
+I use tensorflow_probability to optimize this equation with L-BFGS.
 
 ## Results
-### PMF from SPX European Call and Put Options
+### VIX
+VIX is interesting to study because the index has a clear negative skew but spikes very hard occassionally. Pricing options using a regular lognormal black-scholes model would yield terrible returns. From observing the implied PMF I retreive, we clearly see that the market does not use a lognormal distribution to price these options, but rather a multimodal one.
+
+Gamma = 1e-5 LCA coefficient = 0.9 (Here I used absoute value instead of square difference on the log term for put and call loss, moreover I weighted the log loss to 0.9 and the normal square difference 1-0.9=0.1) 
+#### PMF from VIX European Call and Put Options
+![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/vix_official/VIX_zoom.png?raw=true)
+
+#### Predicted Call Option Prices (Blue) vs Ground Truth (Orange)
+![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/vix_official/ModelCall_VIX.png?raw=true)
+
+#### Model Call Option Residuals (Absolute Difference)
+![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/vix_official/CallResiduals_VIX.png?raw=true)
+
+#### Predicted Put Option Prices (Blue) vs Ground Truth (Orange)
+![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/vix_official/ModelPut_VIX.png?raw=true)
+
+#### Model Put Option Residuals (Absolute Difference)
+![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/vix_official/PutResiduals_VIX.png?raw=true)
+
+### SPX
+SPX serves as a sanity check for this project. Because SPX is an index of 500 carefully selected stocks, it should be very stable and obey traditional financial intuitions (a lognormal return). The results gathered in this project showcase how the PMF of SPX obeys these notions of lognormality more so than the VIX.
+
+gamma is set to 1e-4 for SPX European Options, lognormal coefficient (square difference) = 0.5
+#### PMF from SPX European Call and Put Options
 ![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/PMF.png?raw=true)
 
-### Predicted Call Option Prices (Blue) vs Ground Truth (Orange)
+#### Predicted Call Option Prices (Blue) vs Ground Truth (Orange)
 ![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/ModelCall.png?raw=true)
 
-### Model Call Option Residuals (Absolute Difference)
+#### Model Call Option Residuals (Absolute Difference)
 ![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/CallResiduals.png?raw=true)
 
-### Predicted Put Option Prices (Blue) vs Ground Truth (Orange)
+#### Predicted Put Option Prices (Blue) vs Ground Truth (Orange)
 ![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/ModelPut.png?raw=true)
 
-### Model Put Option Residuals (Absolute Difference)
+#### Model Put Option Residuals (Absolute Difference)
 ![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/PutResiduals.png?raw=true)
