@@ -42,7 +42,12 @@ I use tensorflow_probability to optimize this equation with L-BFGS.
 ### VIX
 VIX is interesting to study because the index has a clear negative skew but spikes very hard occassionally. Pricing options using a regular lognormal black-scholes model would yield terrible returns. From observing the implied PMF I retreive, we clearly see that the market does not use a lognormal distribution to price these options, but rather a multimodal one.
 
-Gamma = 1e-5 LCA coefficient = 0.9 (Here I used absoute value instead of square difference on the log term for put and call loss, moreover I weighted the log loss to 0.9 and the normal square difference 1-0.9=0.1) 
+![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/vix_official/vix_history.png?raw=true)
+
+Gamma = 1e-5 LCA coefficient = 0.9 (Here I used absoute value instead of square difference on the log term for put and call loss, moreover I weighted the log loss to 0.9 and the normal square difference 1-0.9=0.1)
+
+
+
 #### PMF from VIX European Call and Put Options
 ![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/vix_official/VIX_zoom.png?raw=true)
 
@@ -60,6 +65,8 @@ Gamma = 1e-5 LCA coefficient = 0.9 (Here I used absoute value instead of square 
 
 ### SPX
 SPX serves as a sanity check for this project. Because SPX is an index of 500 carefully selected stocks, it should be very stable and obey traditional financial intuitions (a lognormal return). The results gathered in this project showcase how the PMF of SPX obeys these notions of lognormality more so than the VIX.
+
+![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/spx_history.png?raw=true)
 
 gamma is set to 1e-4 for SPX European Options, lognormal coefficient (square difference) = 0.5
 #### PMF from SPX European Call and Put Options
