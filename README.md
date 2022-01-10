@@ -1,6 +1,12 @@
 # Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices
 The purpose of this project is to retrieve a probability mass function from market call and put european option prices.  I use tensorflow and tensorflow_probability to learn the implied PMF.
 
+## SPX Market Prices
+
+![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/MarketCallPrices.png?raw=true)
+
+![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/MarketPutPrices.png?raw=true)
+
 ## Option Price and Stock Price Probability Density
 <img src="https://latex.codecogs.com/png.image?\bg_white&space;u_{call}(K)&space;=&space;\int_{K}^{\infty}(x-K)&space;s(x)&space;dx&space;" title="u_{call} = \int_{K}^{\infty}(x-k) s(x) dx " />
 <img src="https://latex.codecogs.com/png.image?\dpi{110}&space;\bg_white&space;u_{put}(K)&space;=&space;\int_{0}^{K}(K-x)&space;s(x)&space;dx&space;" title="\bg_white u_{put} = \int_{0}^{K}(K-x) s(x) dx " />
