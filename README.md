@@ -8,7 +8,7 @@ The purpose of this project is to retrieve a probability mass function from mark
 
 ## Parameterizing S(.) and Discretizing the Optimization Problem
 <img src="https://latex.codecogs.com/png.image?\dpi{110}&space;\bg_white&space;s&space;=&space;softmax(z)" title="\bg_white s = softmax(z)" />
-Where z will be a learned vector, s_i will represent <img src="https://latex.codecogs.com/png.image?\dpi{110}&space;\bg_white&space;\inline&space;P(S_T&space;=&space;x_i)" title="\bg_white \inline P(S_T = x_i)" /> x_i will is an element of the mesh spanning the moneyness of strike prices. Thus, the option prices can be estimated like such...
+Where z will be a learned vector, s_i will represent <img src="https://latex.codecogs.com/png.image?\dpi{110}&space;\bg_white&space;\inline&space;P(S_T&space;=&space;x_i)" title="\bg_white \inline P(S_T = x_i)" /> x_i will is an element of the mesh spanning the moneyness of strike prices. Thus, the option prices can be estimated like such (N=1000 in the code)...
 <img src="https://latex.codecogs.com/png.image?\dpi{110}&space;\bg_white&space;u_{call}(K)&space;=&space;\sum_{i}^{N}&space;s_i(x_i&space;-&space;K)^&plus;&space;" title="\bg_white u_{call}(K) = \sum_{i}^{N} s_i(x_i - K)^+ " />
 <img src="https://latex.codecogs.com/png.image?\dpi{110}&space;\bg_white&space;u_{put}(K)&space;=&space;\sum_{i}^{N}&space;s_i(K&space;-&space;x_i)^&plus;&space;" title="\bg_white u_{put}(K) = \sum_{i}^{N} s_i(K - x_i)^+ " />
 
@@ -22,3 +22,19 @@ I chose to weigh the square difference between points by the inverse of the abso
 <img src="https://latex.codecogs.com/png.image?\dpi{110}&space;\bg_white&space;\min_{z}&space;L_{call}(z)&space;&plus;&space;L_{put}(z)&space;&plus;&space;\gamma&space;\sum_{i}^{N-1}\frac{(z_i&space;-&space;z_{i&plus;1})^2}{|x_i&space;-&space;x_{i&plus;1}|}" title="\bg_white \min_{z} L_{call}(z) + L_{put}(z) + \gamma \sum_{i}^{N-1}\frac{(z_i - z_{i+1})^2}{|x_i - x_{i+1}|}" />
 
 gamma is set to 1e-4 for SPX European Options. I use tensorflow_probability to optimize this equation with L-BFGS.
+
+## Results
+### PMF from SPX European Call and Put Options
+![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/PMF.png?raw=true)
+
+### Predicted Call Option Prices (Blue) vs Ground Truth (Orange)
+![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/ModelCall.png?raw=true)
+
+### Model Call Option Residuals (Absolute Difference)
+![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/CallResiduals.png?raw=true)
+
+### Predicted Put Option Prices (Blue) vs Ground Truth (Orange)
+![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/ModelPut.png?raw=true)
+
+### Model Put Option Residuals (Absolute Difference)
+![alt text](https://github.com/PhilipFelizarta/Implied-Stock-Probability-Mass-Function-from-Market-European-Option-Prices/blob/main/figures/PutResiduals.png?raw=true)
